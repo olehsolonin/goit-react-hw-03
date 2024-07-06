@@ -1,0 +1,25 @@
+.container {
+	border: 1px solid black;
+	border-radius: 4px;
+	padding: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 100px;
+	margin: 0 auto;
+ }
+
+ .wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+ }
+ 
+ .name {
+	margin: 0;
+ }
+
+ .icon {
+margin: 0 10px;
+ }
+ 

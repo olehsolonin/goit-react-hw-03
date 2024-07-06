@@ -4,8 +4,8 @@ import { Formik, Form, Field } from 'formik';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import ContactForm from '../ContactForm/ContactForm';
-// import SearchBox from "../SearchBox/SearchBox";
-// import ContactList from '../ContactList/ContactList';
+import SearchBox from '../SearchBox/SearchBox';
+import ContactList from '../ContactList/ContactList';
 import css from './App.module.css';
 
 export default function App() {
@@ -16,16 +16,37 @@ export default function App() {
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ];
 
-  const addUser = newUser => {
-    console.log('adding new user', newUser);
+  const [tasks, setTasks] = useState(initialTasks);
+
+  const [filter, setFilter] = useState('');
+
+  const handleSetFilter = filter => {
+    setFilter(filter);
   };
+
+  const addTask = newTask => {
+    console.log('Новий контакт:', newTask);
+    setTasks(tasks => {
+      return [...tasks, newTask];
+    });
+  };
+
+  const deleteTask = taskId => {
+    setTasks(tasks => {
+      return tasks.filter(task => task.id !== taskId);
+    });
+  };
+
+  const visibleTasks = tasks.filter(task =>
+    task.name.toLowerCase().includes(filter.toLowerCase)
+  );
 
   return (
     <div className={css.appContainer}>
       <h1 className={css.mainTitle}>Phonebook</h1>
-      <ContactForm onAdd={addUser} />
-      {/* <SearchBox /> */}
-      {/* <ContactList /> */}
+      <ContactForm onAdd={addTask} />
+      <SearchBox filter={filter} onFilter={handleSetFilter} />
+      <ContactList tasks={visibleTasks} onDelete={deleteTask} />
     </div>
   );
 }
