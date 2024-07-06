@@ -2,7 +2,7 @@ import { Formik, Form, Field } from 'formik';
 import css from './ContactForm.module.css';
 import { number } from 'yup';
 
-export default function ContactForm(onAdd) {
+export default function ContactForm({ onAdd }) {
   const handleSubmit = (values, actions) => {
     console.log('handleSubmit', values.name, values.number);
     onAdd({
