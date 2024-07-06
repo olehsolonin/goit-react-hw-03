@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useId } from 'react';
 import { Formik, Form, Field } from 'formik';
 import clsx from 'clsx';
-import * as Yup from 'yup';
 import ContactForm from '../ContactForm/ContactForm';
 import SearchBox from '../SearchBox/SearchBox';
 import ContactList from '../ContactList/ContactList';
@@ -16,7 +15,22 @@ export default function App() {
     { id: 'id-4', name: 'Antonio Banderas', number: '227-91-26' },
   ];
 
-  const [tasks, setTasks] = useState(initialTasks);
+  const [tasks, setTasks] = useState(() => {
+    const savedData = localStorage.getItem('getData');
+    try {
+      const parsedData = JSON.parse(savedData);
+      console.log('Парсінг даних з localStorage:', parsedData);
+      return Array.isArray(parsedData) ? parsedData : initialTasks;
+    } catch (e) {
+      console.error('Помилка парсінгу даних з localStorage', e);
+      return initialTasks;
+    }
+  });
+
+  useEffect(() => {
+    console.log('Збережені дані в localStorage:', tasks);
+    localStorage.setItem('getData', JSON.stringify(tasks));
+  }, [tasks]);
 
   const [filter, setFilter] = useState('');
 
