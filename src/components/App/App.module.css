@@ -26,8 +26,10 @@ body {
 
  .appContainer {
 	margin: 0 auto;
+	width: 500px;
  }
 
  .mainTitle {
 	margin: 0 auto;
+	margin-bottom: 20px;
  }
